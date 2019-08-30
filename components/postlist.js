@@ -1,6 +1,8 @@
 import { useQuery } from '@apollo/react-hooks'
 import { NetworkStatus } from 'apollo-boost'
 import gql from 'graphql-tag'
+import Link from 'next/link'
+import { removeDomainFromUrl } from '../lib/utils';
 
 export const GET_POSTS_QUERY = gql`
   query GET_POSTS($first: Int!, $after: String!) {
@@ -71,7 +73,9 @@ export default function PostList () {
           <li key={post.node.id}>
             <div>
               <span>{index + 1}. </span>
-              <a href={post.node.link}>{post.node.title}</a>
+              <Link href={removeDomainFromUrl(post.node.link)}>
+                <a>{post.node.title}</a>
+              </Link>
             </div>
           </li>
         ))}
